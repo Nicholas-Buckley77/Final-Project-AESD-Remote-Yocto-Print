@@ -1,0 +1,5 @@
+build*/
+build-essential
+pylint3
+rpi-build*/
+xz-utils
