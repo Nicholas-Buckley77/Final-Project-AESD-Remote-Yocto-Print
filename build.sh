@@ -17,8 +17,9 @@ local_conf_info=$?
 if [ $local_conf_info -ne 0 ];then
 	echo "Append ${CONFLINE} in the local.conf file"
 	echo ${CONFLINE} >> conf/local.conf
-	echo "LICENSE_FLAGS_ACCEPTED = \"synaptics-killswitch\"" >> conf/local.conf
+	echo "LICENSE_FLAGS_ACCEPTED = \"synaptics-killswitch commercial\"" >> conf/local.conf
 	echo "IMAGE_FSTYPES = \"wic.bz2 rpi-sdimg\"" >> conf/local.conf
+	echo "IMAGE_INSTALL:append = \" octoprint mjpg-streamer gnome-desktop\"" >> conf/local.conf
 
 	
 else
@@ -35,6 +36,18 @@ if [ $layer_info -ne 0 ];then
 	bitbake-layers add-layer ../meta-openembedded/meta-networking
 	bitbake-layers add-layer ../meta-openembedded/meta-python
 
+
+    # recommended via https://github.com/TheYoctoJester/meta-octoprint/tree/master
+	bitbake-layers add-layer ../meta-openembedded/meta-oe
+	bitbake-layers add-layer ../meta-openembedded/meta-multimedia	
+	bitbake-layers add-layer ../meta-openembedded/meta-perl	
+	bitbake-layers add-layer ../meta-openembedded/meta-webserver	
+
+	# this is a modified copy of https://github.com/TheYoctoJester/meta-octoprint/tree/master updated with a few changes to run on nanbield
+	bitbake-layers add-layer ../meta-octoprint
+
+	# for ease of use
+	bitbake-layers add-layer ../meta-openembedded/meta-gnome
 
 else
 	echo "meta-raspberrypi layer already exists"
