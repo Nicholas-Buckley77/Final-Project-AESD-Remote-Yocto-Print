@@ -19,7 +19,7 @@ if [ $local_conf_info -ne 0 ];then
 	echo ${CONFLINE} >> conf/local.conf
 	echo "LICENSE_FLAGS_ACCEPTED = \"synaptics-killswitch commercial\"" >> conf/local.conf
 	echo "IMAGE_FSTYPES = \"wic.bz2 rpi-sdimg\"" >> conf/local.conf
-	echo "IMAGE_INSTALL:append = \" octoprint mjpg-streamer gnome-desktop\"" >> conf/local.conf
+	echo "IMAGE_INSTALL:append = \" packagegroup-meta-python3 python3-pydantic python3-octoprint mjpg-streamer\"" >> conf/local.conf
 
 	
 else
@@ -33,12 +33,13 @@ layer_info=$?
 if [ $layer_info -ne 0 ];then
 	echo "Adding meta-raspberrypi layer"
 	bitbake-layers add-layer ../meta-raspberrypi
+	bitbake-layers add-layer ../meta-openembedded
+	bitbake-layers add-layer ../meta-openembedded/meta-oe
 	bitbake-layers add-layer ../meta-openembedded/meta-networking
 	bitbake-layers add-layer ../meta-openembedded/meta-python
 
 
     # recommended via https://github.com/TheYoctoJester/meta-octoprint/tree/master
-	bitbake-layers add-layer ../meta-openembedded/meta-oe
 	bitbake-layers add-layer ../meta-openembedded/meta-multimedia	
 	bitbake-layers add-layer ../meta-openembedded/meta-perl	
 	bitbake-layers add-layer ../meta-openembedded/meta-webserver	
@@ -54,4 +55,4 @@ else
 fi
 
 set -e
-bitbake core-image-base
+bitbake core-image-base -k
