@@ -19,7 +19,7 @@ if [ $local_conf_info -ne 0 ];then
 	echo ${CONFLINE} >> conf/local.conf
 	echo "LICENSE_FLAGS_ACCEPTED = \"synaptics-killswitch commercial\"" >> conf/local.conf
 	echo "IMAGE_FSTYPES = \"wic.bz2 rpi-sdimg\"" >> conf/local.conf
-	echo "IMAGE_INSTALL:append = \" packagegroup-meta-python3 python3-pydantic python3-octoprint mjpg-streamer\"" >> conf/local.conf
+	echo "IMAGE_INSTALL:append = \" python3 python3-pip\"" >> conf/local.conf
 
 	
 else
