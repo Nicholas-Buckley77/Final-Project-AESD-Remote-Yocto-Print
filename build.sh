@@ -19,7 +19,7 @@ if [ $local_conf_info -ne 0 ];then
 	echo ${CONFLINE} >> conf/local.conf
 	echo "LICENSE_FLAGS_ACCEPTED = \"synaptics-killswitch commercial\"" >> conf/local.conf
 	echo "IMAGE_FSTYPES = \"wic.bz2 rpi-sdimg\"" >> conf/local.conf
-	echo "IMAGE_INSTALL:append = \" python3 python3-pip\"" >> conf/local.conf
+	echo "IMAGE_INSTALL:append = \" python3-core python3 python3-pip kernel-modules octoprint\"" >> conf/local.conf
 
 	
 else
@@ -33,7 +33,6 @@ layer_info=$?
 if [ $layer_info -ne 0 ];then
 	echo "Adding meta-raspberrypi layer"
 	bitbake-layers add-layer ../meta-raspberrypi
-	bitbake-layers add-layer ../meta-openembedded
 	bitbake-layers add-layer ../meta-openembedded/meta-oe
 	bitbake-layers add-layer ../meta-openembedded/meta-networking
 	bitbake-layers add-layer ../meta-openembedded/meta-python
@@ -44,7 +43,7 @@ if [ $layer_info -ne 0 ];then
 	bitbake-layers add-layer ../meta-openembedded/meta-perl	
 	bitbake-layers add-layer ../meta-openembedded/meta-webserver	
 
-	# this is a modified copy of https://github.com/TheYoctoJester/meta-octoprint/tree/master updated with a few changes to run on nanbield
+	# this is a modified copy of https://github.com/TheYoctoJester/meta-octoprint/tree/master updated with all of my own changes to make it compatible with Nanbield and new octoprint and python
 	bitbake-layers add-layer ../meta-octoprint
 
 	# for ease of use
