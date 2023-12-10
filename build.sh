@@ -17,6 +17,11 @@ local_conf_info=$?
 if [ $local_conf_info -ne 0 ];then
 	echo "Append ${CONFLINE} in the local.conf file"
 	echo ${CONFLINE} >> conf/local.conf
+
+	echo "DISTRO_FEATURES:append = \" systemd usrmerge\"" >> conf/local.conf
+	echo "DISTRO_FEATURES_BACKFILL_CONSIDERED += \"sysvinit\"" >> conf/local.conf
+	echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> conf/local.conf
+	echo "VIRTUAL-RUNTIME_initscripts = \"systemd-compat-units\"" >> conf/local.conf
 	echo "LICENSE_FLAGS_ACCEPTED = \"synaptics-killswitch commercial\"" >> conf/local.conf
 	echo "IMAGE_FSTYPES = \"wic.bz2 rpi-sdimg\"" >> conf/local.conf
 	echo "IMAGE_INSTALL:append = \" python3-core python3 python3-pip kernel-modules octoprint\"" >> conf/local.conf
